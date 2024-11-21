@@ -1,28 +1,503 @@
+<!-- 
+    
+    "gay sex has been proven to provide many benefits for men" -Vin 
+
+    uh please dont look at my code its such a fucking mess lmao
+
+    if ur really out here reading my code here's a peek at something coming in the future:
+      On the button page there's gonna be a button that redirects you to a page organized almost like a file explorer sorta like this: https://projectc190.neocities.org/
+      It's gonna be filled with cool projects i do, like music and mods for games that i make in videos.
+      
+      
+      also gonna add one of these: https://gifypet.neocities.org/#getapet
+      and some of the pets on this page: https://mooeena.neocities.org/
+      and stealing the checkers on https://andou.gay/
+      3270 is the name of the lethal company font 
+-->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chatroom</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div id="login-container" class="hidden">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Enter username">
-    <button id="login-button">Login</button>
-  </div>
-
-  <div id="chat-container" class="hidden">
-    <h2>Chatroom</h2>
-    <div id="message-area"></div>
-    <div id="message-input">
-      <input type="text" id="message" placeholder="Type your message">
-      <button id="send-button">Send</button>
-    </div>
-    <button id="logout-button">Logout</button>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+<html lang="en" style="min-height:100%; position:relative;">
+    <head>
+        <title>Puurks Site</title>
+        <link rel="icon" href="media/yippeeicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://fonts.cdnfonts.com/css/mocha" rel="stylesheet">
+        <link href="https://fonts.cdnfonts.com/css/digit-lo-fi" rel="stylesheet">
+        <link href="https://fonts.cdnfonts.com/css/curse-casual" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/atropos@2.0.2/atropos.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/atropos@2.0.2/atropos.min.css" rel="stylesheet">
+        <script>
+            window.onload = function() {
+                // Generate a random number between 1 and 50
+                const randomChance = Math.floor(Math.random() * 50) + 1;
+    
+                // Check if the random number is 1 (1 in 50 chance)
+                if (randomChance === 1) {
+                    document.title = "deki - e621"; // Set the title
+                    document.querySelector("link[rel='icon']").href = "media/faviconV2.png"; // Set the favicon
+                    document.body.style.backgroundColor = "#003064"; // Change background color
+                }
+                else {
+                  var titles = ['Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site', 'Puurks Site: Java Edition', 'puurks site 2: electric boogaloo', 'and why he ouurps :joy:', 'Puurks Site: Now 50% Less Gay!', 'Puurks Site (froxle is gay)', 'free deki preg art', 'that was uncanny', 'Puurks Site (Removed Herobrine!)', 'join the discord nerd']
+              var title = titles[Math.floor(Math.random() * titles.length)] // pick random item
+              document.title = title
+                }
+            };
+        </script>
+    </head>
+    <body id="poopoo" dragable="false" style="overflow: hidden;" height="100%">
+        <div class="bg w-100" id="" height="100%" > <!-- readd vh-100 -->
+          <div class="h-100 d-flex justify-content-center align-items-center position-absolute" id="startbu">
+                  <div class="row align-items-center">
+                      <div class="col align-self-center">
+                          <button class="startbutton col-9 col-sm-7 col-md-4 col-lg-5 col-xxl-6" onclick="window.location = '#select-screen'"></button>
+                      </div>
+                  </div>
+          </div>
+          <div>
+            <div class="" id="about-me" style="z-index: 11;">
+            
+                <div class="container-fluid h-100 g-0">
+                <button style="z-index:13;" width="10vw" class="position-fixed bottom-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#select-screen';"><i class="bi bi-house-door-fill text-light fs-1"></i></button>
+                    <div class="h-100 row g-0">
+                        <div class="col-md-4">
+                            <div class="bg-dark w-100 text-center top">
+                                <h1 style="
+                                background: rgb(164,0,255);
+                                background: linear-gradient(90deg, rgba(164,0,255,1) 0%, rgba(255,0,200,1) 100%);
+                                font-family: 'Digit', sans-serif;
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;">About Puurks</h1>
+                            </div>
+                            <img src="media/PuurksLogoNew.png" width="100%" class="mt-1 mb-1">
+                            <span class="bg-primary"></span>
+                        </div>
+                        <div class="col-md-8 card text-bg-dark">
+                            <div class="text-center">
+                              <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                  <li class="nav-item">
+                                    <span class="nav-link active" aria-current="true" >About Me</span>
+                                  </li>
+                                  <li class="nav-item">
+                                    <span class="nav-link" onclick="window.location = '#socials'">Socials</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="card-body">
+                                <p class="card-title text-start h1">Hello!</p>
+                                <p class="card-text text-start h2">My name is Puurks and I like video games and coding. <br> I play mostly shooter games, and enjoy making videos (although I haven't made any of those in a while lmao).</p>
+                                <p class="card-text text-start h2"><br>My favorite games of all time are A Hat in Time and Pizza Tower, and I am currently grinding Counter Strike 2. <br><br>uh i think im supposed to put pronouns on here or whatever but i really dont care call me whatever lmao</p>
+                                <p class="card-text text-start h2"><br>i coded this site bc i think carrds are dumb and gay and strawpages are even gayer so i did the straight thing and coded it myself.</p>
+                                <p class="card-text text-start h2"><br>please subscribe to my patreon on the socials page pls i need money it starts at $1 a month</p>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" id="socials" style="z-index: 10;">
+                <button style="z-index:13;" width="10vw" class="position-fixed bottom-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#select-screen'"><i class="bi bi-house-door-fill text-light fs-1"></i></button>
+                <div class="container-fluid h-100 g-0">
+                    <div class="h-100 row g-0">
+                        <div class="col-md-4">
+                            <div class="bg-dark w-100 text-center">
+                                <h1 style="
+                                background: rgb(164,0,255);
+                                background: linear-gradient(90deg, rgba(164,0,255,1) 0%, rgba(255,0,200,1) 100%);
+                                font-family: 'Digit', sans-serif;
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;">About Puurks</h1>
+                            </div>
+                            <img src="media/PuurksLogoNew.png" width="100%" class="mt-1">
+                            <span class="bg-primary"></span>
+                        </div>
+                        <div class="col-md-8 card text-bg-dark">
+                            <div class="text-center">
+                              <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                  <li class="nav-item">
+                                    <span class="nav-link" onclick="window.location = '#about-me'" aria-current="true" >About Me</span>
+                                  </li>
+                                  <li class="nav-item">
+                                    <span class="nav-link active" >Socials</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="card-body">
+                                <div class="d-flex container align-content-around">
+                                  <div class="row g-2">
+                                    <div class="col-5 col-md-2 m-2 socialsBorder" onclick="window.open('https://www.youtube.com/@PuurksYT')">
+                                      <img src="media/socials/youtube.svg" width="100%" class="mb-1 pt-1" dragable="false">
+                                      <p>Youtube</p>
+                                    </div>
+                                    <div class="col-5 col-md-2 m-2 socialsBorder" onclick="window.open('https://www.twitch.tv/puurkslive')">
+                                      <img src="media/socials/twitch.svg" width="100%" class="mb-1 pt-1" dragable="false">
+                                      <p>Twitch</p>
+                                    </div>
+                                    <div class="col-5 col-md-2 m-2 socialsBorder" onclick="window.open('https://kick.com/puurks')">
+                                      <img src="media/socials/kick.svg" width="100%" class="mb-1 pt-1" dragable="false">
+                                      Kick
+                                    </div>
+                                    <div class="col-5 col-md-2 m-2 socialsBorder" onclick="window.open('https://x.com/PuurksWasTaken')">
+                                      <img src="media/socials/X.svg" width="100%" class="mb-1 pt-1" dragable="false">
+                                      X / Twitter
+                                    </div>
+                                    <div class="col-5 col-md-2 m-2 socialsBorder" onclick="window.open('https://patreon.com/Puurks')">
+                                      <img src="media/socials/patreon.svg" width="100%" class="mb-1 pt-1" dragable="false">
+                                      Patreon
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" id="pfps" style="z-index: 10;">
+                <button style="z-index:13;" width="10vw" class="position-fixed bottom-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#select-screen'"><i class="bi bi-house-door-fill text-light fs-1"></i></button>
+                <div class="container-fluid h-100 g-0">
+                    <div class="h-100 row g-0">
+                        <div class="col-md-12 card text-bg-dark">
+                            <div class="text-center">
+                              <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                  <li class="nav-item">
+                                    <span class="nav-link active" aria-current="true" >Icons/PFPs</span>
+                                  </li>
+                                  <li class="nav-item" onclick="window.location = '#gifs'">
+                                    <span class="nav-link" >GIFs</span>
+                                  </li>
+                                  <li class="nav-item" onclick="window.location = '#stickers'">
+                                    <span class="nav-link">Stickers</span>
+                                  </li>
+                                  <li class="nav-item" onclick="window.location = '#etc'">
+                                    <span class="nav-link">Etc.</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="card-body">
+                                <div class="container p-4">
+                                    <div class="row">
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/pfps/ameliaxdeg.jpeg">
+                                            <br>
+                                            <span>Art by <a href="https://x.com/ameliaxdeg">@ameliaxdeg</a> on X / Twitter</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/pfps/beansellsart.jpg">
+                                            <br>
+                                            <span>Art by <a href="https://www.etsy.com/shop/beansellsart">@beansellsart</a> on Etsy</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/pfps/sh4rk.png">
+                                            <br>
+                                            <span>Base by <a href="https://x.com/SH_4RK">@SH_4RK</a> on X / Twitter</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/pfps/muttvoreskull.gif">
+                                            <br>
+                                            <span>Base by <a href="https://x.com/muttvore">@muttvore</a> on X / Twitter</span>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" id="gifs" style="z-index: 10;">
+            <button style="z-index:13;" width="10vw" class="position-fixed bottom-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#select-screen'"><i class="bi bi-house-door-fill text-light fs-1"></i></button>
+                <div class="container-fluid h-100 g-0">
+                    <div class="h-100 row g-0">
+                        <div class="col-md-12 card text-bg-dark">
+                            <div class="text-center">
+                              <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                  <li class="nav-item" onclick="window.location = '#pfps'">
+                                    <span class="nav-link">Icons/PFPs</span>
+                                  </li>
+                                  <li class="nav-item">
+                                    <span class="nav-link active" aria-current="true">GIFs</span>
+                                  </li>
+                                  <li class="nav-item" onclick="window.location = '#stickers'">
+                                    <span class="nav-link">Stickers</span>
+                                  </li>
+                                  <li class="nav-item" onclick="window.location = '#etc'">
+                                    <span class="nav-link">Etc.</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="card-body">
+                                <div class="container p-4">
+                                    <div class="row">
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/gifs/unknownspy2.gif">
+                                            <br>
+                                            <span>Base by <a href="https://x.com/Inkhandprint">@Inkhandprint</a> on X / Twitter</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/gifs/unknownspy1.gif">
+                                            <br>
+                                            <span>Base by <a href="https://x.com/Inkhandprint">@Inkhandprint</a> on X / Twitter</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/gifs/_arc.tic.gif">
+                                            <br>
+                                            <span>Art by <a href="https://www.instagram.com/_arc.tic/">@_arc.tic</a> on Instagram</span>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" id="stickers" style="z-index: 10;">
+                <button style="z-index:13;" width="10vw" class="position-fixed bottom-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#select-screen'"><i class="bi bi-house-door-fill text-light fs-1"></i></button>
+                <div class="container-fluid h-100 g-0">
+                    <div class="h-100 row g-0">
+                        <div class="col-md-12 card text-bg-dark">
+                            <div class="text-center">
+                              <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                  <li class="nav-item" onclick="window.location = '#pfps'">
+                                    <span class="nav-link">Icons/PFPs</span>
+                                  </li>
+                                  <li class="nav-item" onclick="window.location = '#gifs'">
+                                    <span class="nav-link">GIFs</span>
+                                  </li>
+                                  <li class="nav-item">
+                                    <span class="nav-link active" aria-current="true">Stickers</span>
+                                  </li>
+                                  <li class="nav-item" onclick="window.location = '#etc'">
+                                    <span class="nav-link">Etc.</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="card-body">
+                                <div class="container p-4">
+                                    <div class="row">
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/stickers/sweetheart_iri.png">
+                                            <br>
+                                            <span>Base filled by <a href="https://www.instagram.com/sweetheart_iri/">@sweetheart_iri</a> on Instagram</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/stickers/FirecrackerCove.jpg">
+                                            <br>
+                                            <span>Base filled by <a href="https://www.etsy.com/shop/FirecrackerCove">@FirecrackerCove</a> on Etsy</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/stickers/calicomagpie.png">
+                                            <br>
+                                            <span>Art by <a href="https://x.com/calicomagpie">@calicomagpie</a> on X / Twitter</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/stickers/nepukami.png">
+                                            <br>
+                                            <span>Lineart by <a href="https://x.com/nepukami">@nepukami</a> on X / Twitter</span>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" id="etc" style="z-index: 10;">
+                <button style="z-index:13;" width="10vw" class="position-fixed bottom-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#select-screen'"><i class="bi bi-house-door-fill text-light fs-1"></i></button>
+                <div class="container-fluid h-100 g-0">
+                    <div class="h-100 row g-0">
+                        <div class="col-md-12 card text-bg-dark">
+                            <div class="text-center">
+                              <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                  <li class="nav-item" onclick="window.location = '#pfps'">
+                                    <span class="nav-link">Icons/PFPs</span>
+                                  </li>
+                                  <li class="nav-item" onclick="window.location = '#gifs'">
+                                    <span class="nav-link">GIFs</span>
+                                  </li>
+                                  <li class="nav-item" onclick="window.location = '#stickers'">
+                                    <span class="nav-link" >Stickers</span>
+                                  </li>
+                                  <li class="nav-item">
+                                    <span class="nav-link active" aria-current="true">Etc.</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="card-body">
+                                <div class="container p-4">
+                                    <div class="row">
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/etc/LumiKlyde.gif">
+                                            <br>
+                                            <span>Bases by <a href="https://toyhou.se/LumiKlyde">@LumiKlyde</a> on Toyhouse</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/etc/kawaiipicnic.gif">
+                                            <br>
+                                            <span>PNGTuber by <a href="https://x.com/kawaiipicnic">@kawaiipicnic</a> on X / Twitter</span>
+                                        </div>
+                                        <div class="col p-2">
+                                            <img class="img-thumbnail" src="media/gallery/etc/murcurycat.png">
+                                            <br>
+                                            <span>Minecraft skin by <a href="https://x.com/MurcuryCat">@MurcuryCat</a> on X / Twitter</span>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" id="ocdeki" style="z-index: 11;">
+                <button style="z-index:13;" width="10vw" class="position-fixed bottom-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#select-screen'"><i class="bi bi-house-door-fill text-light fs-1"></i></button>
+                <div class="container-fluid h-100 g-0">
+                    <div class="h-100 row g-0">
+                        <div class="col-md-4">
+                            <div class="bg-dark w-100 text-center">
+                                <h1 style="
+                                background: rgb(164,0,255);
+                                background: linear-gradient(90deg, rgba(164,0,255,1) 0%, rgba(255,0,200,1) 100%);
+                                font-family: 'Digit', sans-serif;
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;">OCS - Deki</h1>
+                            </div>
+                            <img src="media/dekimainpic.webp" id="dekiImg" width="100%">
+                            <span class="bg-primary"></span>
+                        </div>
+                        <div class="col-md-8 card text-bg-dark">
+                            <div class="text-center">
+                              <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                  <li class="nav-item">
+                                    <span class="nav-link active" aria-current="true" >Deki</span>
+                                  </li>
+                                  <li class="nav-item">
+                                    <span class="nav-link" onclick="window.location = '#ocshai'">Shai</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="card-body" id="dekiText">
+                                <p class="card-title text-start h1">Deki</p>
+                                <p class="card-text text-start h2">dumb purple cat</p>
+                                <p class="card-text text-start h2"><br>dont really know anything about them i dont even know what gender they are</p>
+                                <p class="h2"><br>fun fact: i got this character from an adopt</p>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" id="ocshai" style="z-index: 11;">
+                <button style="z-index:13;" width="10vw" class="position-fixed bottom-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#select-screen'"><i class="bi bi-house-door-fill text-light fs-1"></i></button>
+                <div class="container-fluid h-100 g-0">
+                    <div class="h-100 row g-0">
+                        <div class="col-md-4">
+                            <div class="bg-dark w-100 text-center">
+                                <h1 style="
+                                background: rgb(164,0,255);
+                                background: linear-gradient(90deg, rgba(164,0,255,1) 0%, rgba(255,0,200,1) 100%);
+                                font-family: 'Digit', sans-serif;
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;">OCS - Shai</h1>
+                            </div>
+                            <img src="media/shaimainpic.webp" width="100%">
+                            <span class="bg-primary"></span>
+                        </div>
+                        <div class="col-md-8 card text-bg-dark">
+                            <div class="text-center">
+                              <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                  <li class="nav-item">
+                                    <span class="nav-link" onclick="window.location = '#ocdeki'">Deki</span>
+                                  </li>
+                                  <li class="nav-item">
+                                    <span class="nav-link active" aria-current="true" >Shai</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="card-body">
+                                <p class="card-title text-start h1">Shai</p>
+                                <p class="card-text text-start h2">stupid pink spirit cat </p>
+                                <p class="card-text text-start h2">this fella is a <a href="https://toyhou.se/~world/145077.galixpaws">Galixpaw</a><br>i hope they die in a ditch stupid loser <br>uh i havent done anything with this fella yet really</p>
+                                <p class="h2"><br>fun fact: i found the species while i was scrolling toyhouse at 3 am and thought it was cool so i made a stupid sona using the species in like 10 minutes lmao</p>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div data-relative-input="true" data-pointer-events="true" class="container text-center d-flex align-items-center justify-content-center" id="select-screen" style="z-index:3;">
+                    <div data-depth="0.2" class=" d-flex justify-content-around align-items-center">
+                        <div class="row row-cols-2 g-5 justify-content-center align-middle">
+                            <div class="col d-flex justify-content-end">
+                                <div onclick="window.location = '#about-me'" class="col-9 col-sm-7 col-md-4 col-lg-5 col-xxl-6 select-button">
+                                    <img data-tilt data-tilt-reverse="true" src="media/DekiAboutPuurks.png" class="col-12 border border-5 border-white rounded">
+                                </div>
+                            </div>
+                            <div class="col d-flex justify-content-start">
+                                <div onclick="window.location = '#ocdeki'" class="col-9 col-sm-7 col-md-4 col-lg-5 col-xxl-6 select-button">
+                                    <img data-tilt data-tilt-reverse="true" src="media/OCSPage.png" class="col-12 border border-5 border-white rounded">
+                                </div>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <div onclick="window.location = '#pfps'" class="col-9 col-sm-7 col-md-4 col-lg-5 col-xxl-6 select-button">
+                                    <img data-tilt data-tilt-reverse="true" src="media/DekiGallery.png" class="col-12 border border-5 border-white rounded">
+                                </div>
+                            </div>
+                            <div class="col d-flex justify-content-start">
+                                <div onclick="window.open('https://discord.com/invite/PS9vTfaUVr')" class="col-9 col-sm-7 col-md-4 col-lg-5 col-xxl-6 select-button">
+                                    <img data-tilt data-tilt-reverse="true" src="media/DekiDiscordIcon.png" class="col-12 border border-5 border-white rounded">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button style="z-index:13;" width="10vw" class="position-fixed top-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#'"><i class="bi bi-x-lg text-light fs-1"></i></button>
+            </div>
+          </div>
+        </div>
+        <script>
+            // Generate a random number between 1 and 20
+            const randomChance = Math.floor(Math.random() * 20) + 1;
+        
+            // Check if the random number is 1 (1 in 20 chance)
+            if (randomChance === 1) {
+                // Select the div with the id "dekiText"
+                const dekiTextDiv = document.getElementById("dekiText");
+                // Create a new h1 element
+                const newHeading = document.createElement("h1");
+                newHeading.textContent = "I can't take it anymore";
+        
+                // Replace the content of the div with the new h1 element
+                dekiTextDiv.innerHTML = ""; // Clear existing content
+                dekiTextDiv.appendChild(newHeading);
+        
+                // Update the src of the img with the id "dekiImg"
+                const dekiImg = document.getElementById("dekiImg");
+                if (dekiImg) {
+                    dekiImg.src = "media/dekioiledup.webp";
+                }
+            }
+        </script>
+        <script>
+// i give up https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element?page=2&tab=scoredesc
+        </script>
+        <script type="text/javascript" src="parallax.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" integrity="sha512-wC/cunGGDjXSl9OHUH0RuqSyW4YNLlsPwhcLxwWW1CR4OeC2E1xpcdZz2DeQkEmums41laI+eGMw95IJ15SS3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </body>
 </html>
