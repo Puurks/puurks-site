@@ -378,7 +378,7 @@ body {
 #ocdeki:target {
     visibility: visible;
 }
-#ocshai {
+#ocyuki {
     position:absolute;
     overflow: auto;
     background: rgb(250,82,255);
@@ -393,7 +393,7 @@ body {
     border-radius: 10px;
     border: 10px #ffffff solid;
 }
-#ocshai:target {
+#ocyuki:target {
     visibility: visible;
 }
 .select-button {
