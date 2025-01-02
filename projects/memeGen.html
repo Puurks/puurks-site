@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puurks Meme Generator</title>
+    <link rel="icon" href="media/yippeeicon.png">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f; /* Dark background */
+            color: #e0e0e0; /* Light text for contrast */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100%; /* Ensure full height */
+            width: 100%; /* Cover viewport */
+            overflow: visible; /* Prevent scrolling */
+            padding: 20px;
+        }
+        
+        /* Header */
+        h1 {
+            margin-bottom: 20px;
+            color: #a879f1; /* Purple accent */
+            text-align: center;
+        }
+        
+        /* Main Content Layout */
+        .content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 80%; /* Fit within viewport */
+            max-width: 800px; /* Prevent overly wide layout */
+            gap: 20px;
+        }
+        
+        /* Meme Canvas Container */
+        .canvas-container {
+            flex: 2; /* Take up more space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        
+        #memeCanvas {
+            border: 2px solid #a879f1; /* Purple border */
+            width: 100%; /* Allow the canvas to scale with the container */
+            height: auto; /* Maintain aspect ratio */
+            background-color: #252538; /* Subtle dark tone for placeholder */
+        }
+        
+        /* Controls */
+        .controls-container {
+            flex: 1; /* Smaller space for buttons */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px; /* Space between buttons */
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: 2px solid #a879f1;
+            background-color: transparent;
+            color: #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%; /* Make buttons responsive */
+        }
+        
+        button:hover {
+            background-color: #a879f1;
+            color: #1e1e2f;
+            transform: scale(1.05);
+        }
+        
+        button:active {
+            transform: scale(0.95);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .content {
+                flex-direction: column; /* Stack vertically */
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            button {
+                font-size: 0.9rem;
+            }
+            #memeCanvas {
+                max-width: 100%;
+                max-height: 300px; /* Limit the canvas size on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Puurks Meme Generator</h1>
+    <p>with images and possible text picked by chatgpt</p>
+    <br>
+    <div class="content">
+        <!-- Meme Canvas -->
+        <div class="canvas-container">
+            <canvas id="memeCanvas"></canvas>
+        </div>
+        <!-- Buttons -->
+        <div class="controls-container">
+            <button id="generateMeme">Generate Meme</button>
+            <button id="downloadMeme">Download Meme</button>
+        </div>
+    </div>
+    <script>
+        const memeCanvas = document.getElementById('memeCanvas');
+        const ctx = memeCanvas.getContext('2d');
+        const generateMemeButton = document.getElementById('generateMeme');
+        const downloadMemeButton = document.getElementById('downloadMeme');
+        
+        // Expanded meme images
+        const memeImages = [
+            'https://i.imgflip.com/1bij.jpg',  // Drakeposting
+            'https://i.imgflip.com/26am.jpg',  // Distracted Boyfriend
+            'https://i.imgflip.com/4acd7j.jpg', // Gru's Plan
+            'https://i.imgflip.com/2fm6x.jpg',  // Change My Mind
+            'https://i.imgflip.com/345v97.jpg', // Woman Yelling at Cat
+            'https://i.imgflip.com/4t0m5.jpg',  // Uno Draw 25
+            'https://i.imgflip.com/1g8my4.jpg', // Expanding Brain
+            'https://i.imgflip.com/3si4.jpg',   // Two Buttons
+            'https://i.imgflip.com/30b1gx.jpg', // Is This a Pigeon?
+            'https://i.imgflip.com/4bh6kj.jpg', // Bernie in Mittens
+            'https://i.imgflip.com/1ur9b0.jpg'  // Surprised Pikachu
+        ];
+        
+        const subjects = [
+            'When you', 
+            'That moment you', 
+            'POV:', 
+            'Your face when', 
+            'Nobody:',
+            'Imagine if you',
+            'Just as you',
+            'When your friend',
+            'Every time you',
+            'The exact second you',
+            'When you forget to'
+        ];
+        
+        const actions = [
+            'debug all night', 
+            'find a bug at 3 AM', 
+            'forget to save your code', 
+            'realize it works on your machine', 
+            'push to production without tests',
+            'see a missing semicolon', 
+            'accidentally delete the database',
+            'write a 100-line function',
+            'spend hours debugging a typo',
+            'merge without checking the code',
+            'forget your password in front of your team',
+            'deploy on a Friday',
+            'try to explain recursion to someone',
+            'realize the server is down',
+            'replace a feature with a "temporary" fix'
+        ];
+        
+        const outcomes = [
+            'and it crashes.', 
+            'but it still fails.', 
+            'and your code compiles!', 
+            'and the client loves it.', 
+            'and nothing breaks.', 
+            'and everything goes wrong.',
+            'but the tests pass anyway.',
+            'and you win a free coffee!',
+            'and it gets stuck in an infinite loop.',
+            'and nobody notices.',
+            'but the intern fixes it.',
+            'and your boss walks in.',
+            'and it works on the first try.',
+            'but only on Windows.',
+            'but it bricks the server.',
+            'and the build takes forever.',
+            'but the deadline is tomorrow.',
+            'and you have to rewrite the entire thing.',
+            'but your cat steps on the keyboard.'
+        ];
+        
+        memeCanvas.width = 500;
+        memeCanvas.height = 500;
+        
+        function getRandomElement(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+        
+        function generateRandomMemeText() {
+            const subject = getRandomElement(subjects);
+            const action = getRandomElement(actions);
+            const outcome = getRandomElement(outcomes);
+            return `${subject} ${action} ${outcome}`;
+        }
+        
+        function wrapText(context, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            const lines = [];
+        
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = context.measureText(testLine);
+                const testWidth = metrics.width;
+        
+                if (testWidth > maxWidth && n > 0) {
+                    lines.push(line);
+                    line = words[n] + ' ';
+                } else {
+                    line = testLine;
+                }
+            }
+            lines.push(line);
+        
+            lines.forEach((line, index) => {
+                context.strokeText(line, x, y + index * lineHeight);
+                context.fillText(line, x, y + index * lineHeight);
+            });
+        }
+        
+        function generateMeme() {
+            const randomImage = memeImages[Math.floor(Math.random() * memeImages.length)];
+            const memeText = generateRandomMemeText();
+        
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = randomImage;
+        
+            img.onload = () => {
+                // Clear the canvas
+                ctx.clearRect(0, 0, memeCanvas.width, memeCanvas.height);
+        
+                // Draw the image
+                ctx.drawImage(img, 0, 0, memeCanvas.width, memeCanvas.height);
+                
+                ctx.fillStyle = 'white';
+                ctx.strokeStyle = 'black';
+                ctx.textAlign = 'center';
+                ctx.lineWidth = 4;
+                
+                // Add meme text with wrapping
+                ctx.font = '30px Arial';
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 2;
+        
+                const maxWidth = memeCanvas.width - 40; // Add padding
+                const lineHeight = 40; // Line height between text
+                const x = memeCanvas.width / 2;
+                const y = memeCanvas.height - 150;
+        
+                wrapText(ctx, memeText, x, y, maxWidth, lineHeight);
+        
+                // Add watermark
+                ctx.font = '20px Arial';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.strokeText("puurks.com/memeGen", memeCanvas.width - 110, memeCanvas.height - 20);
+                ctx.fillText('puurks.com/memeGen', memeCanvas.width - 110, memeCanvas.height - 20);
+            };
+        }
+        
+        function downloadMeme() {
+            const link = document.createElement('a');
+            link.download = 'meme.png';
+            link.href = memeCanvas.toDataURL();
+            link.click();
+        }
+        
+        generateMemeButton.addEventListener('click', generateMeme);
+        downloadMemeButton.addEventListener('click', downloadMeme);
+    </script>
+</body>
+</html>
