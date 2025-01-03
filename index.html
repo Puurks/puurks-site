@@ -60,7 +60,8 @@
             };
         </script>
     </head>
-    <body id="poopoo" dragable="false" style="overflow: hidden;" height="100%">
+    <body id="poopoo" dragable="false" style="overflow: hidden; pointer-events: none;" height="100%">
+        <button style="pointer-events:all;" class="projectsbutton position-absolute col-9 col-sm-7 col-md-4 col-lg-5 col-xxl-6 top-0 end-0" onclick="window.location = 'projects/home'"></button>
         <div class="bg w-100" id="" height="100%" > <!-- readd vh-100 -->
           <div class="h-100 d-flex justify-content-center align-items-center position-absolute" id="startbu">
                   <div class="row align-items-center">
@@ -69,9 +70,8 @@
                       </div>
                   </div>
           </div>
-          <div>
+          <div style="pointer-events: all;">
             <div class="" id="about-me" style="z-index: 11;">
-            
                 <div class="container-fluid h-100 g-0">
                 <button style="z-index:13;" width="10vw" class="position-fixed bottom-0 start-0  bg-dark " aria-label="Close" onclick="window.location = '#select-screen';"><i class="bi bi-house-door-fill text-light fs-1"></i></button>
                     <div class="h-100 row g-0">
