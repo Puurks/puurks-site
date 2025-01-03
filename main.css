@@ -168,6 +168,17 @@ body {
 ::-moz-selection {
   background: #e27aff00; /* Gecko Browsers */
 }
+.projectsbutton {
+  width:500px;
+  height:200px;
+  border-style:none;
+    background: url('media/projectsButton.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
 .startbutton {
     width: 200px;
     height:200px;
