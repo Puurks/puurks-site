@@ -1,23 +1,27 @@
 const express = require("express");
-const http = require("http");
 const { Server } = require("socket.io");
+const http = require("http");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 const multer = require("multer");
+const bcrypt = require("bcrypt");
 const path = require("path");
 
+// Vercel Serverless Function Setup
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Allow all origins for simplicity (adjust for security in production)
+  },
+});
 
 // Middleware
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/uploads", express.static("uploads"));
+app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // MongoDB Connection
-mongoose.connect("mongodb://localhost:27017/chatroom", {
+mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/chatroom", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -30,7 +34,7 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model("User", userSchema);
 
-// Multer for file uploads
+// Multer for File Uploads
 const storage = multer.diskStorage({
   destination: "./uploads",
   filename: (req, file, cb) => {
@@ -66,16 +70,13 @@ app.post("/api/login", async (req, res) => {
 // Socket.io Chat Logic
 io.on("connection", (socket) => {
   console.log("A user connected");
-
   socket.on("chat message", (msg) => {
     io.emit("chat message", msg);
   });
-
   socket.on("disconnect", () => {
     console.log("A user disconnected");
   });
 });
 
-// Start Server
-const PORT = 3000;
-server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Export Server for Vercel
+module.exports = app;
