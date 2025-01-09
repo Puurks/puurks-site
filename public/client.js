@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
           body: formData,
         });
         if (!response.ok) throw new Error("Registration failed");
-        window.location.href = "index.html";
+        window.location.href = "chat-login.html";
       } catch (err) {
         document.getElementById("error").textContent = err.message;
       }
