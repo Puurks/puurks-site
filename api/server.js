@@ -21,7 +21,7 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // Database Connection
 const pool = new Pool({
-  connectionString: process.env.BASE_URL, // Use the DATABASE_URL environment variable
+  connectionString: process.env.DATABASE_URL, // Use the DATABASE_URL environment variable
   ssl: {
     rejectUnauthorized: false, // Required for some hosted databases
   },
