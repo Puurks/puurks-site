@@ -2,7 +2,7 @@
   "private": true,
   "dependencies": {
     "@vercel/edge": "^0.1.2"
-  }
+  },
   "scripts": {
       "start": "node api/server.js",
       "build": "npm install"
