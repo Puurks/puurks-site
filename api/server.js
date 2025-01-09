@@ -1,103 +1,101 @@
 const express = require("express");
+const { Server } = require("socket.io");
+const http = require("http");
 const { Pool } = require("pg");
+const bcrypt = require("bcrypt");
+const multer = require("multer");
+const path = require("path");
 
 const app = express();
-const port = process.env.PORT || 3000;
-
-// Configure the database connection
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+const server = http.createServer(app);
+const io = new Server(server, {
+cors: {
+origin: "*",
+},
 });
 
-// Middleware to parse JSON and log incoming requests
+// Middleware
 app.use(express.json());
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-  next();
+app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
+// Database Connection
+const pool = new Pool({
+  connectionString: process.env.CONNECT_STR, // Use the DATABASE_URL environment variable
+ssl: {
+rejectUnauthorized: false, // Required for some hosted databases
+},
 });
 
-// Test endpoint for health check
-app.get("/api/health", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.status(200).json({ status: "ok", time: result.rows[0].now });
-  } catch (err) {
-    console.error("Database connection error:", err);
-    res.status(500).json({ status: "error", message: "Database connection failed" });
-  }
+// Create Users Table if Not Exists
+(async () => {
+const client = await pool.connect();
+await client.query(`
+   CREATE TABLE IF NOT EXISTS users (
+     id SERIAL PRIMARY KEY,
+     username VARCHAR(255) UNIQUE NOT NULL,
+     password VARCHAR(255) NOT NULL,
+     profile_picture TEXT
+   );
+ `);
+client.release();
+})();
+
+// Multer for File Uploads
+const storage = multer.diskStorage({
+destination: "./uploads",
+filename: (req, file, cb) => {
+cb(null, `${Date.now()}-${file.originalname}`);
+},
+});
+const upload = multer({ storage });
+
+// API Routes
+app.post("/api/register", upload.single("profilePicture"), async (req, res) => {
+const { username, password } = req.body;
+const hashedPassword = await bcrypt.hash(password, 10);
+const profilePicture = req.file ? `/uploads/${req.file.filename}` : null;
+
+try {
+const result = await pool.query(
+"INSERT INTO users (username, password, profile_picture) VALUES ($1, $2, $3) RETURNING id",
+[username, hashedPassword, profilePicture]
+);
+res.status(201).json({ message: "User registered successfully", id: result.rows[0].id });
+} catch (err) {
+console.error(err);
+res.status(400).json({ error: "Username already exists" });
+}
 });
 
-// Register user
-app.post("/api/register", async (req, res) => {
-  const { username, password, profile_picture } = req.body;
-
-  if (!username || !password) {
-    console.error("Missing username or password in request body.");
-    return res.status(400).json({ error: "Username and password are required." });
-  }
-
-  try {
-    const result = await pool.query(
-      `INSERT INTO users (username, password, profile_picture)
-       VALUES ($1, $2, $3) RETURNING id`,
-      [username, password, profile_picture || null]
-    );
-
-    console.log(`User registered: ${username} (ID: ${result.rows[0].id})`);
-    res.status(201).json({ message: "User registered successfully!", userId: result.rows[0].id });
-  } catch (err) {
-    console.error("Error inserting user into database:", err);
-    if (err.code === "23505") {
-      res.status(409).json({ error: "Username already exists." });
-    } else {
-      res.status(500).json({ error: "Failed to register user." });
-    }
-  }
-});
-
-// Login user
 app.post("/api/login", async (req, res) => {
-  const { username, password } = req.body;
+const { username, password } = req.body;
+const result = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
 
-  if (!username || !password) {
-    console.error("Missing username or password in request body.");
-    return res.status(400).json({ error: "Username and password are required." });
-  }
-
-  try {
-    const result = await pool.query(
-      `SELECT id, profile_picture FROM users WHERE username = $1 AND password = $2`,
-      [username, password]
-    );
-
-    if (result.rows.length === 0) {
-      console.log(`Login failed for user: ${username}`);
-      return res.status(401).json({ error: "Invalid username or password." });
-    }
-
-    console.log(`User logged in: ${username} (ID: ${result.rows[0].id})`);
-    res.status(200).json({ message: "Login successful!", user: result.rows[0] });
-  } catch (err) {
-    console.error("Error during login:", err);
-    res.status(500).json({ error: "Failed to log in." });
-  }
+if (result.rows.length > 0) {
+const user = result.rows[0];
+if (await bcrypt.compare(password, user.password)) {
+res.json({ username: user.username, profilePicture: user.profile_picture });
+} else {
+res.status(400).json({ error: "Invalid username or password" });
+}
+} else {
+res.status(400).json({ error: "Invalid username or password" });
+}
 });
 
-// Handle chat messages (simplified for now)
-app.post("/api/chat", async (req, res) => {
-  const { username, message } = req.body;
+// Socket.io Chat Logic
+io.on("connection", (socket) => {
+console.log("A user connected");
 
-  if (!username || !message) {
-    console.error("Missing username or message in request body.");
-    return res.status(400).json({ error: "Username and message are required." });
-  }
-
-  console.log(`Message from ${username}: ${message}`);
-  res.status(200).json({ message: "Message received." });
+socket.on("chat message", (msg) => {
+io.emit("chat message", msg);
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+socket.on("disconnect", () => {
+console.log("A user disconnected");
 });
+});
+
+// Export Server for Vercel
+module.exports = app;
