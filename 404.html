@@ -1,113 +1,109 @@
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
         <title>Puurks Site</title>
-        <link rel="icon" href="media/dekirip.png">
+        <link rel="icon" href="/media/dekirip.png">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
-    <style>
-        @import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
-        html,
-        body {
-          margin: 0;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+            html,
+            body {
+              margin: 0;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+            }
+            
+            body {
+              background-color: rgb(1, 2, 172);
+              font-family: 'Press Start 2P', cursive;
+              color: white;
+              -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+             -khtml-user-select: none; /* Konqueror HTML */
+               -moz-user-select: none; /* Old versions of Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                      supported by Chrome, Edge, Opera and Firefox */
+            }
+            .container {
+              display:flex;
+              align-items:center;
+              width:100%;
+              height:100%;
+            }
+            
+            .msg {
+              padding-left: 100px;
+              padding-right: 100px;
+            }
+            
+            p {
+              text-align: left;
+            }
+            
+            .continue {
+              text-align: center;
+            }
+            
+            .highlight {
+              color: rgb(1, 2, 172);
+              background-color: rgb(172, 173, 168);
+              padding: 3px;
+              text-align: center;
+              width: 150px;
+            }
+            
+            .blink {
+              animation: blink 1s steps(2, start) infinite;
+            }
+            .sway {
+                animation: sway 8s infinite;
+                transform-origin: 50% 100% 0;
+            }
+            @keyframes sway {
+                0%, 100%{ transform: rotate(-6deg);}
+                50%{ transform: rotate(6deg); }
+            }
+            @keyframes blink {
+              to {
+                visibility: hidden;
+              }
+            }
+        </style>
+    </head>
+    <body style="overflow-x: hidden; cursor:none;" onclick="window.location = '/'">
+        <div class="container">
+            <div class="msg" align='center'> <!--0x00000077	-->
+                <img style="width:10%" class="sway" src="/media/dekiripfinal.png">
+                <p class='highlight'>Puurks.com</p>
+                <p>A fatal exception 0E has occured at 0157:00006935 in HTML Puurks(<span id="url-end">01</span>) 000059F8. The current application will be terminated.</p>
+                <p>* Press any key to terminate the application.</p>
+                <p>* Press CTRL+ALT+DEL to invoke a task manager or security related component that facilitates ending a Windows session or killing a frozen application.</p>
+                <br>
+                <p class="continue">Press any key to continue <span class="blink">_</span></p>
+            </div>
+        </div>
+        <script>
+            document.body.addEventListener('keypress', myFunction);
+            function myFunction(){
+                location.href = '/';
+            }
+        </script>
+      <script>
+        // Select the paragraph element
+        const urlEndParagraph = document.getElementById("url-end");
         
-        body {
-          background-color: rgb(1, 2, 172);
-          font-family: 'Press Start 2P', cursive;
-          color: white;
-          -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
-
-        }
+        // Get the current URL path and remove any trailing slashes
+        const urlPath = window.location.pathname.replace(/\/+$/, '');
         
-        .container {
-          display:flex;
-          align-items:center;
-          width:100%;
-          height:100%;
-        }
+        // Extract the last part of the path
+        const lastPathPart = urlPath.substring(urlPath.lastIndexOf('/') + 1) || "not_found.html"; // defaults to 'home' if path is empty
         
-        .msg {
-          padding-left: 100px;
-          padding-right: 100px;
-        }
-        
-        p {
-          text-align: left;
-        }
-        
-        .continue {
-          text-align: center;
-        }
-        
-        .highlight {
-          color: rgb(1, 2, 172);
-          background-color: rgb(172, 173, 168);
-          padding: 3px;
-          text-align: center;
-          width: 150px;
-        }
-        
-        .blink {
-          animation: blink 1s steps(2, start) infinite;
-        }
-        .sway {
-            animation: sway 8s infinite;
-            transform-origin: 50% 100% 0;
-        }
-        @keyframes sway {
-            0%, 100%{ transform: rotate(-6deg);}
-            50%{ transform: rotate(6deg); }
-        }
-        @keyframes blink {
-          to {
-            visibility: hidden;
-          }
-        }
-    </style>
-</head>
-<body style="overflow-x: hidden; cursor:none;" onclick="window.location = '/'">
-
-<div class="container">
-   <div class="msg" align='center'> <!--0x00000077	-->
-   <img style="width:10%" class="sway" src="/media/dekiripfinal.png">
-     <p class='highlight'>Puurks.com</p>
-     <p>A fatal exception 0E has occured at 0157:00006935 in HTML Puurks(<span id="url-end">01</span>) 000059F8. The current application will be terminated.</p>
-     <p>* Press any key to terminate the application.</p>
-     <p>* Press CTRL+ALT+DEL to invoke a task manager or security related component that facilitates ending a Windows session or killing a frozen application.</p>
-     <br>
-     <p class="continue">Press any key to continue <span class="blink">_</span></p>
-  </div>
-</div>
-  <script>
-    document.body.addEventListener('keypress', myFunction);
-    function myFunction(){
-        location.href = '/';
-    }
-  </script>
-  <script>
-// Select the paragraph element
-const urlEndParagraph = document.getElementById("url-end");
-
-// Get the current URL path and remove any trailing slashes
-const urlPath = window.location.pathname.replace(/\/+$/, '');
-
-// Extract the last part of the path
-const lastPathPart = urlPath.substring(urlPath.lastIndexOf('/') + 1) || "not_found.html"; // defaults to 'home' if path is empty
-
-// Set the text of the paragraph element to the last part of the URL path
-urlEndParagraph.textContent = lastPathPart;
-
-  </script>
-</body>
+        // Set the text of the paragraph element to the last part of the URL path
+        urlEndParagraph.textContent = lastPathPart;
+      </script>
+    </body>
 </html>
