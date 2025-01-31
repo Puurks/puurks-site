@@ -3,4 +3,5 @@
     { "handle": "filesystem" },
     { "src": "/(.*)", "status": 404, "dest": "/not_found.html" }
   ]
+  "cleanUrls": true
 }
