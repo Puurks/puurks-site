@@ -1,9 +1,8 @@
 {
-  "name": "Puurks",
   "private": true,
   "dependencies": {
     "@vercel/edge": "^0.1.2"
-  }
+  },
   "dependencies": {
     "next": "latest",
     "react": "latest",
@@ -14,5 +13,4 @@
     "@types/react": "latest",
     "typescript": "latest"
   }
-
 }
