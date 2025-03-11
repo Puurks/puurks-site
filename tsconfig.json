@@ -1,4 +1,6 @@
 {
+    "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"],
     "compilerOptions": {
         "incremental": true,
         "strict": true,
@@ -6,6 +8,7 @@
         "allowJs": true,
         "skipLibCheck": true,
         "noEmit": true,
+        "lib": ["DOM", "DOM.Iterable", "esnext"],
         "plugins": [
             {
                 "name": "next"
@@ -18,7 +21,4 @@
         "isolatedModules": true,
         "jsx": "preserve"
     },
-    "typeAcquisition": {
-        "exclude": ["node_modules"]
-    }
 }
