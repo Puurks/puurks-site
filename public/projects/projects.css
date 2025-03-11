@@ -63,7 +63,6 @@ p.title{
 /* When the .show-children class is added to .pItem, the children are visible */
 .pItem.show-children .hidden {
     display: block;
-    
 }
 .fIcon {
     height:5vh;
@@ -72,7 +71,7 @@ p.title{
     background: url('https://img.icons8.com/?size=100&id=123471&format=png&color=7950F2');
     background-size: 100%;
 }
-
 #fileView {
     background: #e4e5f1;
+    overflow:scroll;
 }
