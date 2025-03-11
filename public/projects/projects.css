@@ -73,5 +73,5 @@ p.title{
 }
 #fileView {
     background: #e4e5f1;
-    /* overflow:scroll; */
+    overflow:scroll;
 }
