@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /DONOTOPEN.html
+
+Sitemap: https://www.puurks.com/sitemap.xml
