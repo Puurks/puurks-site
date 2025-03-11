@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%; overflow:hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PKS CARD</title>
+    <link rel="icon" href="../media/yippeeicon.png">
+    <style>
+/* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: linear-gradient(90deg, #1e293b, #334155, #475569); /* Neutral dark gradient */
+            color:white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            background: linear-gradient(to bottom, #2c3e50, #3498db);
+            color: #ecf0f1;
+            margin: 0;
+            padding: 0;
+            height:100%;
+        }
+        .game-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .status-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .player, .enemy {
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .card {
+            width: 120px;
+            height: 160px;
+            border: 2px solid #1abc9c;
+            border-radius: 10px;
+            background: #34495e;
+            color: #ecf0f1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .card:hover {
+            background: #1abc9c;
+            transform: scale(1.1);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            background: rgb(241,47,47);
+background: linear-gradient(0deg, rgba(241,47,47,1) 0%, rgba(217,29,29,1) 100%);
+            border: none;
+            border-radius: 5px;
+            color: #ecf0f1;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: rgb(190,40,40);
+            background: linear-gradient(0deg, rgba(190,40,40,1) 0%, rgba(185,26,26,1) 100%);
+        }
+        .energy {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .winstreak {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        /* Player Stats Bar */
+        .stats-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #1e293b, #334155, #475569); /* Neutral dark gradient */
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 1.2em;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stats-bar .stat {
+            margin: 0;
+            padding: 0 10px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        
+        .stats-bar .health {
+            color: #ff4d4d; /* Red for health */
+        }
+        
+        .stats-bar .energy {
+            color: #ffd700; /* Gold for energy */
+        }
+        
+        .stats-bar .combo {
+            color: #76c893; /* Green for combo */
+        }
+        
+        .stats-bar .streak {
+            color: #fdb827; /* Yellow for streaks */
+        }
+        .card-effect {
+            color: pink; /* Slightly muted/different color */
+            font-size: 0.9em; /* Slightly smaller than the main text */
+            font-style: italic; /* Optional: Makes it more distinct */
+        }
+
+        /* Stat Flash Animation */
+        @keyframes stat-flash {
+            0% { color: rgba(255, 255, 255, 0.8); }
+            50% { color: rgba(0, 0, 0, 0); }
+            100% { color: rgba(255, 255, 255, 0.8); }
+        }
+        
+        .stat-flash {
+            animation: stat-flash 0.5s ease-out;
+        }
+        #cheat-status {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        #settings-button {
+            background: rgb(156,29,217);
+            background: linear-gradient(180deg, rgba(156,29,217,1) 0%, rgba(179,47,241,1) 100%);
+        }
+        #settings-button:hover {
+            background: rgb(161,45,215);
+background: linear-gradient(180deg, rgba(161,45,215,1) 0%, rgba(181,55,240,1) 100%);
+        }
+#tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#tutorial-modal {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+#tutorial-modal h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#tutorial-modal p {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+#tutorial-modal ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    text-align: left;
+    margin-bottom: 15px;
+    color:black;
+}
+
+#tutorial-modal button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#tutorial-modal button:hover {
+    background-color: #0056b3;
+}
+
+#open-tutorial {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#open-tutorial:hover {
+    background-color: #218838;
+}
+
+    </style>
+</head>
+<body style="overflow: scroll;">
+    <div class="game-container">
+        <br>
+        <h1>PKS Card</h1>
+        <div id="player-stats" class="stats-bar">
+            <p class="stat"><span id="player-health" class="health">❤️ 20</span></p>
+            <p class="stat"><span id="player-energy" class="energy">⚡ 3</span></p>
+            <p class="stat"><span id="combo-counter" class="combo">🔗 Combo: 0</span></p>
+            <p class="stat"><span id="winstreak" class="streak">🏆 Winstreak: 0</span></p>
+            <p class="stat"><span id="highest-winstreak" class="streak">🥇 Highest: 0</span></p>
+        </div>
+        <div id="tutorial-overlay" style="display: none;">
+            <div id="tutorial-modal">
+                <h3>Tutorial</h3>
+                <p>tutorial thing</p>
+                <ul>
+                    <li><strong>Objective:</strong> Defeat the enemy by reducing their health to 0 while keeping yours above 0.</li>
+                    <li><strong>Energy:</strong> Spend energy to play cards. Energy refills each turn and carries over unused energy.</li>
+                    <li><strong>Hand:</strong> The max number of cards you can hold is 12, and attempting to draw over that results in each draw attempt dealing one damage to you.</li>
+                    <li><strong>Combos:</strong> Playing multiple cards in a turn increases the combo counter, adding extra damage.</li>
+                    <li><strong>Enemy Turns:</strong> The enemy will attack or heal on their turn.</li>
+                    <li><strong>Win Streaks:</strong> Win multiple games in a row to increase your streak. Modifying settings disables streak tracking.</li>
+                </ul>
+                <button id="close-tutorial">Close</button>
+            </div>
+        </div>
+
+        <!-- Settings Button -->
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-settings" class="close">&times;</span>
+                <h2>Game Settings (CHEATS)</h2>
+                <label>
+                    Starting Health:
+                    <input type="number" id="starting-health" value="25" min="1">
+                </label>
+                <br>
+                <label>
+                    Energy Per Turn:
+                    <input type="number" id="energy-per-turn" value="3" min="1">
+                </label>
+                <br>
+                <label>
+                    Damage Multiplier:
+                    <input type="number" id="damage-multiplier" value="1" step="0.1" min="0.1">
+                </label>
+                <br>
+                <label>
+                    Combo Damage Bonus:
+                    <input type="number" id="combo-damage-bonus" value="1" min="0">
+                </label>
+                <button id="apply-settings">Apply Settings</button>
+            </div>
+        </div>
+        
+        <div class="enemy">
+            <div style="white-space: pre-line" id="cheat-status"></div>
+            <button id="open-tutorial">How to Play</button>
+            <button id="settings-button">⚙️ Settings</button>
+            <h2>Enemy</h2>
+            <p>Health: <span id="enemy-health">25</span></p>
+        </div>
+        <div class="cards" id="card-container">
+            <!-- Cards will be dynamically added here -->
+        </div>
+        <button id="end-turn">End Turn</button>
+    </div>
+    <script>
+        let winstreak = 0;
+        let highestWinstreak = parseInt(localStorage.getItem('highestWinstreak')) || 0;
+        let comboCounter = 0;
+        let comboBonus = 1; // Damage per combo point
+        const player = { health: 25, energy: 3, maxEnergy: 3 };
+        const enemy = { health: 25, attack: Math.floor(Math.random() * (15 - 5 + 1)) + 5 };
+        const deck = [
+            { name: "Strike", damage: 4, cost: 2 },
+            { name: "Defend", heal: 4, cost: 1 }, // Increased healing
+            { name: "Fireball", damage: 6, cost: 4 },
+            { name: "Heal", heal: 15, cost: 4 }, // Increased healing
+            { name: "Lightning", damage: 8, cost: 5 },
+            { name: "Shield", heal: 10, cost: 2 }, // Increased healing
+            { name: "Double Strike", damage: 7, cost: 3 },
+            { name: "Piercing Shot", damage: 6, cost: 2 },
+            { name: "Energy Boost", cost: 0, effect: "gainEnergy", amount: 2 }, // New special card
+            { name: "Flame Wave", damage: 5, cost: 3 },
+            { name: "Focused Strike", damage: 10, cost: 5 },
+            { name: "Quick Jab", damage: 3, cost: 1 },
+            { name: "Barrier", heal: 12, cost: 3 }, // Increased healing
+            { name: "Arcane Bolt", damage: 7, cost: 4 },
+            { name: "Draw Power", cost: 3, effect: "drawCards", amount: 2 }, // New special card
+            { name: "Reinforce", cost: 4, heal: 5, effect: "gainEnergy", amount: 1 }, // Combo heal + energy
+            { name: "Combo Strike", damage: 3, cost: 4, effect: "comboDamage", amount: 2 } // Scales with combo counter
+        ];
+        const hand = [];
+        const discardPile = [];
+
+        const playerHealthEl = document.getElementById("player-health");
+        const playerEnergyEl = document.getElementById("player-energy");
+        const enemyHealthEl = document.getElementById("enemy-health");
+        const winstreakCounterEl = document.getElementById("winstreak-counter");
+        const highestWinstreakEl = document.getElementById("highest-winstreak");
+        const cardContainer = document.getElementById("card-container");
+        // Default settings
+        let cheatsEnabled = false;
+
+        // Default settings
+        const defaultSettings = {
+            startingHealth: 25,
+            energyPerTurn: 3,
+            damageMultiplier: 1,
+            comboDamageBonus: 1,
+        };
+
+// Current settings
+let settings = { ...defaultSettings };
+let tempSettings = { ...defaultSettings }; // Clone the default settings initially
+
+        // Open and close settings modal
+document.getElementById("settings-button").addEventListener("click", () => {
+    tempSettings = { ...settings }; // Clone current settings into tempSettings
+
+    document.getElementById("starting-health").value = tempSettings.startingHealth;
+    document.getElementById("energy-per-turn").value = tempSettings.energyPerTurn;
+    document.getElementById("damage-multiplier").value = tempSettings.damageMultiplier;
+    document.getElementById("combo-damage-bonus").value = tempSettings.comboDamageBonus;
+
+    document.getElementById("settings-modal").style.display = "flex";
+});
+        
+        document.getElementById("close-settings").addEventListener("click", () => {
+            document.getElementById("settings-modal").style.display = "none";
+        });
+        
+        // Close modal on clicking outside the modal content
+        window.addEventListener("click", (event) => {
+            const modal = document.getElementById("settings-modal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+// Open the tutorial modal
+document.getElementById("open-tutorial").addEventListener("click", () => {
+    document.getElementById("tutorial-overlay").style.display = "flex";
+});
+
+// Close the tutorial modal on button click
+document.getElementById("close-tutorial").addEventListener("click", () => {
+    document.getElementById("tutorial-overlay").style.display = "none";
+});
+
+// Close the tutorial modal when clicking outside of it
+document.getElementById("tutorial-overlay").addEventListener("click", (e) => {
+    if (e.target === document.getElementById("tutorial-overlay")) {
+        document.getElementById("tutorial-overlay").style.display = "none";
+    }
+});
+
+
+// Apply settings
+document.getElementById("apply-settings").addEventListener("click", () => {
+    const startingHealth = parseInt(document.getElementById("starting-health").value);
+    const energyPerTurn = parseInt(document.getElementById("energy-per-turn").value);
+    const damageMultiplier = parseFloat(document.getElementById("damage-multiplier").value);
+    const comboDamageBonus = parseInt(document.getElementById("combo-damage-bonus").value);
+
+    settings = {
+        startingHealth: startingHealth,
+        energyPerTurn: energyPerTurn,
+        damageMultiplier: damageMultiplier,
+        comboDamageBonus: comboDamageBonus,
+    };
+    cheatsEnabled = Object.keys(settings).some(
+        key => settings[key] !== defaultSettings[key]
+    );
+    // Update player stats
+    player.health = settings.startingHealth;
+    enemy.health = settings.startingHealth;
+    player.maxEnergy = settings.energyPerTurn;
+    comboBonus = settings.comboDamageBonus;
+    renderCheatStatus();
+    // Re-render game and close modal
+    resetGame(false);
+    renderGame();
+    document.getElementById("settings-modal").style.display = "none";
+    document.getElementById("outtutorial-modal").style.display = "none";
+
+    console.log("Settings updated:", settings);
+});
+
+        function updateStat(statElementId, value, emoji) {
+            const statElement = document.getElementById(statElementId);
+            statElement.textContent = `${emoji} ${value}`;
+            statElement.classList.add('stat-flash');
+            setTimeout(() => statElement.classList.remove('stat-flash'), 500); // Remove the flash after animation
+        }
+
+        function renderGame() {
+            enemyHealthEl.textContent = enemy.health;
+            updateStat("player-health", player.health, "❤️");
+            updateStat("player-energy", player.energy, "⚡");
+            updateStat("combo-counter", comboCounter, "🔗 Combo:");
+            updateStat("winstreak", winstreak, "🏆 Winstreak:");
+            updateStat("highest-winstreak", highestWinstreak, "🥇 Highest:");
+        }
+        
+        function drawCards(amount) {
+            for (let i = 0; i < amount; i++) {
+                if (deck.length > 0) {
+                    if (hand.length < 12) {
+                        const randomIndex = Math.floor(Math.random() * deck.length);
+                        const card = deck.splice(randomIndex, 1)[0];
+                        hand.push(card);
+                    } else {
+                        player.health -= 1;
+                    }
+                } else {
+                    reshuffleDeck();
+                }
+            }
+            renderCards();
+        }
+
+        function reshuffleDeck() {
+            if (discardPile.length > 0) {
+                deck.push(...discardPile);
+                discardPile.length = 0;
+            } else {
+                alert("No more cards to draw!");
+            }
+        }
+
+        function renderCards() {
+            cardContainer.innerHTML = ""; // Clear the container
+        
+            hand.forEach((card, index) => {
+                const cardEl = document.createElement("div");
+                cardEl.className = "card";
+        
+                // Create a description for the card's effect
+                let effectDescription = "";
+                if (card.effect) {
+                    switch (card.effect) {
+                        case "gainEnergy":
+                            effectDescription = `Gain ${card.amount} Energy.`;
+                            break;
+                        case "drawCards":
+                            effectDescription = `Draw ${card.amount} Cards.`;
+                            break;
+                        case "comboDamage":
+                            effectDescription = `Extra damage: ${card.amount} per Combo.`;
+                            break;
+                        case "weakenEnemy":
+                            effectDescription = `Reduce enemy damage by ${card.amount}.`;
+                            break;
+                        default:
+                            effectDescription = "Special Effect.";
+                    }
+                }
+        
+                // Render the card's details
+                cardEl.innerHTML = `
+                    <strong>${card.name}</strong><br>
+                    Cost: ${card.cost}<br>
+                    ${card.damage ? "Damage: " + card.damage + "<br>" : ""}
+                    ${card.heal ? "Heal: " + card.heal + "<br>" : ""}
+                    ${effectDescription ? `<span class="card-effect">${effectDescription}</span>` : ""}
+                `;
+        
+                // Add functionality to play the card
+                cardEl.addEventListener("click", () => playCard(index));
+        
+                // Append the card to the container
+                cardContainer.appendChild(cardEl);
+            });
+        }
+function renderCheatStatus() {
+    const cheatStatusEl = document.getElementById("cheat-status");
+    if (cheatsEnabled) {
+        cheatStatusEl.textContent = "\nCheats Enabled: Winstreak will not update.";
+    } else {
+        cheatStatusEl.textContent = "";
+    }
+}
+
+// Call this function on game start and after applying settings
+renderCheatStatus();
+
+        function playCard(index) {
+            const card = hand[index];
+            if (player.energy >= card.cost) {
+                player.energy -= card.cost;
+                if (card.damage) {
+                    discardPile.push(...hand.splice(index, 1));
+                    enemy.health -= card.damage * settings.damageMultiplier;
+                }
+                if (card.heal) {
+                    discardPile.push(...hand.splice(index, 1));
+                    player.health = player.health + card.heal;
+                }
+                if (card.effect) {
+                    switch (card.effect) {
+                        case "gainEnergy":
+                            discardPile.push(...hand.splice(index, 1));
+                            player.energy += card.amount;
+                            break;
+                        case "drawCards":
+                            discardPile.push(...hand.splice(index, 1));
+                            drawCards(card.amount);
+                            break;
+                        case "comboDamage":
+                            discardPile.push(...hand.splice(index, 1));
+                            enemy.health -= comboCounter * card.amount; // Extra damage based on combo
+                            break;
+                        case "weakenEnemy":
+                            discardPile.push(...hand.splice(index, 1));
+                            enemy.damage = Math.max(0, enemy.damage - card.amount); // Reduce enemy damage
+                            break;
+                        default:
+                            discardPile.push(...hand.splice(index, 1));
+                            console.warn(`Unknown card effect: ${card.effect}`);
+                    }
+                }
+                comboCounter++;
+                if (card.damage) {
+                    const bonusDamage = (comboCounter * comboBonus) - 1;
+                    enemy.health -= bonusDamage;
+                    if (bonusDamage > 0) {
+                        alert(`Combo Bonus! You dealt an additional ${bonusDamage} damage.`);
+                    }
+                }
+                // discardPile.push(...hand.splice(index, 1));
+                checkGameOver();
+                renderGame();
+                renderCards();
+            } else {
+                alert("Not enough energy to play this card.");
+            }
+        }
+        
+        function endTurn() {
+            player.energy += player.maxEnergy; // Add energy rather than resetting it
+            comboCounter = 0; // Reset combo counter each turn
+            // Determine enemy's action
+            const actionChance = Math.random(); // Random chance for the enemy's action
+            if (actionChance < 0.6) {
+                // Enemy attacks (60% chance)
+                const damage = (Math.floor(Math.random() * (12 - 5 + 1)) + 5)* settings.damageMultiplier; // Random damage between 5 and 12
+                player.health -= damage;
+                //flashStatChange("playerHealth", "red");
+                //logAction("Enemy attacked and dealt " + damage + " damage.");
+            } else if (actionChance < 0.85) {
+                // Enemy heals itself (25% chance)
+                const healAmount = Math.floor(Math.random() * (15 - 6 + 1)) + 6; // Random heal between 3 and 8
+                enemy.health = Math.min(enemy.health + healAmount, settings.startingHealth * 2); // Cap at max health (e.g., 30)
+                //flashStatChange("enemyHealth", "green");
+                //logAction("Enemy healed for " + healAmount + " health.");
+            } else {
+                // Enemy buffs itself (15% chance)
+                enemy.attack += 2; // Buff future attacks by +2 damage
+                //flashStatChange("enemyStatus", "yellow");
+                //logAction("Enemy powered up, increasing its attack by 2!");
+            }
+            drawCards(2); // Draw 2 cards for the player
+            checkGameOver();
+            renderGame(); // Update the game state visually
+        }
+
+
+        function checkGameOver() {
+            if (player.health <= 0) {
+                alert("Game Over! You lost.");
+                resetGame(false);
+            } else if (enemy.health <= 0) {
+                alert("Victory! You defeated the enemy.");
+                resetGame(true);
+            }
+        }
+
+        function resetGame(playerWon) {
+            if (playerWon && !cheatsEnabled) {
+                winstreak++;
+                if (winstreak > highestWinstreak && !cheatsEnabled) {
+                    highestWinstreak = winstreak;
+                    localStorage.setItem('highestWinstreak', highestWinstreak);
+                }
+
+            } else {
+                winstreak = 0;
+            }
+            player.health = settings.startingHealth;
+            player.energy = player.maxEnergy;
+            enemy.health = settings.startingHealth;
+            enemy.attack = Math.floor(Math.random() * (12 - 5 + 1)) + 5;
+            deck.splice(0, deck.length, 
+                { name: "Strike", damage: 4, cost: 2 },
+                { name: "Defend", heal: 4, cost: 1 }, // Increased healing
+                { name: "Fireball", damage: 6, cost: 4 },
+                { name: "Heal", heal: 15, cost: 4 }, // Increased healing
+                { name: "Lightning", damage: 8, cost: 5 },
+                { name: "Shield", heal: 10, cost: 2 }, // Increased healing
+                { name: "Double Strike", damage: 7, cost: 3 },
+                { name: "Piercing Shot", damage: 6, cost: 2 },
+                { name: "Energy Boost", cost: 0, effect: "gainEnergy", amount: 2 }, // New special card
+                { name: "Flame Wave", damage: 5, cost: 3 },
+                { name: "Focused Strike", damage: 10, cost: 5 },
+                { name: "Quick Jab", damage: 3, cost: 1 },
+                { name: "Barrier", heal: 12, cost: 3 }, // Increased healing
+                { name: "Arcane Bolt", damage: 7, cost: 4 },
+                { name: "Draw Power", cost: 3, effect: "drawCards", amount: 2 }, // New special card
+                { name: "Reinforce", cost: 4, heal: 5, effect: "gainEnergy", amount: 1 }, // Combo heal + energy
+                { name: "Combo Strike", damage: 3, cost: 4, effect: "comboDamage", amount: 2 } // Scales with combo counter
+            );
+            hand.length = 0;
+            discardPile.length = 0;
+            drawCards(3);
+            renderGame();
+        }
+
+        document.getElementById("end-turn").addEventListener("click", endTurn);
+
+        drawCards(3);
+        renderGame();
+    </script>
+</body>
+</html>
