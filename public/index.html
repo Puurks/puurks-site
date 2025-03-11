@@ -40,24 +40,6 @@
         <link href="https://fonts.cdnfonts.com/css/digit-lo-fi" rel="stylesheet">
         <link href="https://fonts.cdnfonts.com/css/curse-casual" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
-        <script>
-            window.onload = function() {
-                // Generate a random number between 1 and 50
-                const randomChance = Math.floor(Math.random() * 100) + 1;
-    
-                // Check if the random number is 1 (1 in 50 chance)
-                if (randomChance === 1) {
-                    document.title = "deki - e621"; // Set the title
-                    document.querySelector("link[rel='icon']").href = "media/faviconV2.png"; // Set the favicon
-                    document.body.style.backgroundColor = "#003064"; // Change background color
-                }
-                else {
-                  var titles = ['Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website: Java Edition', 'puurks website 2: electric boogaloo', 'and why he ouurps :joy:', 'Puurks Website (froxle is gay)', 'free deki preg art', 'that was uncanny', 'Puurks Website (Removed Herobrine!)', 'join the discord nerd']
-              var title = titles[Math.floor(Math.random() * titles.length)] // pick random item
-              document.title = title
-                }
-            };
-        </script>
         <script type="application/ld+json">
         {
           "@context" : "https://schema.org",
@@ -67,6 +49,46 @@
           "url" : "https://www.puurks.com"
         }
         </script>
+        <script type="application/ld+json">
+          {
+              "@context": "https://schema.org",
+              "@graph": 
+              [
+                {
+                    "@context": "https://schema.org",
+                    "@type":"SiteNavigationElement",
+                    "@id":"#table-of-contents",
+                    "name": "Main Page",
+                    "url": "https://www.puurks.com/"
+                },
+                {
+                    "@context": "https://schema.org",
+                    "@type":"SiteNavigationElement",
+                    "@id":"#table-of-contents",
+                    "name": "Store Page",
+                    "url": "https://store.puurks.com/"
+                },
+              ]
+          }
+          </script>
+        <script>
+          window.onload = function() {
+              // Generate a random number between 1 and 50
+              const randomChance = Math.floor(Math.random() * 100) + 1;
+  
+              // Check if the random number is 1 (1 in 50 chance)
+              if (randomChance === 1) {
+                  document.title = "deki - e621"; // Set the title
+                  document.querySelector("link[rel='icon']").href = "media/faviconV2.png"; // Set the favicon
+                  document.body.style.backgroundColor = "#003064"; // Change background color
+              }
+              else {
+                var titles = ['Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website', 'Puurks Website: Java Edition', 'puurks website 2: electric boogaloo', 'and why he ouurps :joy:', 'Puurks Website (froxle is gay)', 'free deki preg art', 'that was uncanny', 'Puurks Website (Removed Herobrine!)', 'join the discord nerd']
+            var title = titles[Math.floor(Math.random() * titles.length)] // pick random item
+            document.title = title
+              }
+          };
+      </script>
     </head>
     <body id="poopoo" dragable="false" style="overflow: hidden; pointer-events: none;" height="100%">
         <button style="pointer-events:all;" class="projectsbutton position-absolute col-9 col-sm-7 col-md-4 col-lg-5 col-xxl-6 top-0 end-0" onclick="window.location = 'projects/home.html'"></button>
