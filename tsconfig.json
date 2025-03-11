@@ -1,6 +1,24 @@
 {
     "compilerOptions": {
         "incremental": true,
-        "strict": true
+        "strict": true,
+        "target": "ES2017",
+        "allowJs": true,
+        "skipLibCheck": true,
+        "noEmit": true,
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "module": "esnext",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve"
+    },
+    "typeAcquisition": {
+        "exclude": ["node_modules"]
     }
 }
