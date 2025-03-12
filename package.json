@@ -1,9 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "@vercel/edge": "^0.1.2"
-  },
-  "dependencies": {
+    "@vercel/edge": "^0.1.2",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
@@ -11,6 +9,8 @@
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "@11ty/eleventy": "0.12.1"
+
   }
 }
