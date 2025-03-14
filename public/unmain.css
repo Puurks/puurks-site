@@ -1,0 +1,49 @@
+* {
+    font-family: sans-serif;
+}
+body {
+    padding-top:5vh;
+    padding-bottom:5vh;
+    padding-left:5vw;
+    padding-right:5vw;
+    overflow:hidden;
+    background:pink;
+}
+div {
+    border: solid 5px black;
+    border-radius:20px;
+    padding-top:2vh;
+    padding-bottom:2vh;
+    padding-left:2vw;
+    padding-right:2vw;
+    overflow:scroll;
+    height:80vh;
+    background:white;
+    
+}
+.purp {
+    background: rgb(164,0,255);
+    background: linear-gradient(90deg, rgba(164,0,255,1) 0%, rgba(255,0,200,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+li {
+    padding-top:0.5%;
+    padding-bottom:0.5%;
+}
+img {
+    width:40%;
+}
+#domtitle {
+    margin-top:-20px;
+    color:black;
+}
+#subtitle {
+    margin-top: -20px;
+    color:gray;
+}
+#sexy {
+    position:absolute;
+    bottom:1%;
+    left:1%;
+}

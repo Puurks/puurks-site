@@ -9,8 +9,6 @@
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
-    "typescript": "latest",
-    "@11ty/eleventy": "0.12.1"
-
+    "typescript": "latest"
   }
 }
