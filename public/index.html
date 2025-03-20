@@ -41,6 +41,7 @@
         <link href="https://fonts.cdnfonts.com/css/digit-lo-fi" rel="stylesheet">
         <link href="https://fonts.cdnfonts.com/css/curse-casual" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
         <script type="application/ld+json">
           {
               "@context": "https://schema.org",
@@ -155,7 +156,7 @@
                                 -webkit-background-clip: text;
                                 -webkit-text-fill-color: transparent;">About Puurks</h1>
                             </div>
-                            <img src="/media/PuurksLogoNew.png" alt="Puurks Logo" width="100%" class="mt-1 mb-1">
+                            <img src="/media/PuurksLogoNew.png" data-src="/media/PuurksLogoNew.png" alt="Puurks Logo" width="100%" class="mt-1 mb-1">
                             <span class="bg-primary"></span>
                         </div>
                         <div class="col-md-8 card text-bg-dark">
@@ -553,12 +554,12 @@
                             </div>
                             <div class="col d-flex justify-content-end">
                                 <div onclick="window.location = '#pfps'" class="col-9 col-sm-7 col-md-4 col-lg-5 col-xxl-6 select-button">
-                                    <img data-tilt data-tilt-reverse="true" src="/media/DekiGallery.png" alt="Gallery" class="col-12 border border-5 border-white rounded">
+                                    <img data-tilt data-tilt-reverse="true" src="/media/DekiGallery.png" data-src="/media/DekiGallery.png" alt="Gallery" class="col-12 border border-5 border-white rounded">
                                 </div>
                             </div>
                             <div class="col d-flex justify-content-start">
                                 <div onclick="window.open('https://discord.com/invite/PS9vTfaUVr')" class="col-9 col-sm-7 col-md-4 col-lg-5 col-xxl-6 select-button">
-                                    <img data-tilt data-tilt-reverse="true" src="/media/DekiDiscordIcon.png" alt="Discord Link" class="col-12 border border-5 border-white rounded">
+                                    <img data-tilt data-tilt-reverse="true" src="/media/DekiDiscordIcon.png" data-src="/media/DekiDiscordIcon.png" alt="Discord Link" class="col-12 border border-5 border-white rounded">
                                 </div>
                             </div>
                         </div>
@@ -589,6 +590,9 @@
                     dekiImg.src = "media/dekioiledup.webp";
                 }
             }
+        </script>
+        <script>
+            lazyload();
         </script>
         <script type="text/javascript" src="parallax.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" integrity="sha512-wC/cunGGDjXSl9OHUH0RuqSyW4YNLlsPwhcLxwWW1CR4OeC2E1xpcdZz2DeQkEmums41laI+eGMw95IJ15SS3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
