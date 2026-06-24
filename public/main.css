@@ -162,6 +162,9 @@ body {
 .hover-img a:hover .gallery-img { 
     display:block; 
 }
+.grayscale {
+	filter: saturate(0%);
+}
 ::selection {
   background: #e27aff00; /* WebKit/Blink Browsers */
 }
@@ -212,6 +215,9 @@ body {
 }
 .toptext {
     top:80%;
+}
+.disabled-button {
+	cursor: not-allowed;
 }
 #startbu {
     width:100%;
